@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas><!--values of width and height are defaults for canvas-->
+<script>
+const canvas = document.querySelector("#draw");//grabbing the Canvas
+const ctx = canvas.getContext("2d");//grabbing getContext
+
+//resizing width and Height
+canvas.width =window.innerWidth;
+canvas.height = window.innerHeight;
+
+ctx.strokeStyle ="#BADA55";//needs to be a color
+ctx.lineJoin = "round";//when line joins another line should it be square or round
+ctx.lineCap = "round";
+ctx.lineWidth = 100;
+
+//ctx.globalCompositeOperation ="multiply";//for different values visit this link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+
+let isDrawing = false;//this will draw something only when we hold cursor
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+let direction = true;
+
+function draw(e){
+  if(!isDrawing) return;//stop the function from runningwhen they are not moused down
+  console.log(e);
+  //ctx is where we do all our drawing for canvas
+  ctx.strokeStyle = `hsl(${hue},100%, 50%)`;
+  ctx.beginPath();
+  //start from
+  ctx.moveTo(lastX, lastY);
+  //go to
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();//we are not gonna see anything on the page until we call stroke
+  //updating lastX & lastY
+  lastX = e.offsetX;
+  lastY = e.offsetY;
+  //or
+  //[lastX, lastY] = [e.offsetX, e.offsetY]; this is known as destructuring an array
+  hue++;
+  if(hue >= 360) {
+    hue = 0;
+  }
+
+  if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+    direction = !direction;
+  }
+
+  if(direction){
+    ctx.lineWidth++;
+  }
+  else {
+    ctx.lineWidth--;
+  }
+
+}
+canvas.addEventListener("mousedown", (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];//as soon as person clicks mousedown to start it before we do a mousemove,bcoz mousedown will happen before we move our mouse then we're going to update the lastX & lastY and that's going to put us where we want to go rather than starting at (0,0)
+});
+canvas.addEventListener("mousemove",draw);
+canvas.addEventListener("mouseup",() => isDrawing = false);
+canvas.addEventListener("mouseout",() => isDrawing = false);
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
