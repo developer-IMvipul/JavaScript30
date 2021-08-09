@@ -54,14 +54,14 @@ function takePhoto() {
   strip.insertBefore(link, strip.firstChild);
 }
 
-function redEffect(pixels) {
+/*function redEffect(pixels) {
   for(let i = 0; i < pixels.data.length; i+=4) {
     pixels.data[i + 0] = pixels.data[i + 0] + 200; // Red
     pixels.data[i + 1] = pixels.data[i + 1] -50; // GREEN
     pixels.data[i + 2] = pixels.data[i + 2] * 0.5; // BLUE
   }
   return pixels;
-}
+}*/
 
 function rgbSplit(pixels) {
   for(let i = 0; i < pixels.data.length; i+=4) {
@@ -72,7 +72,7 @@ function rgbSplit(pixels) {
   return pixels;
 }
 
-function greenScreen(pixels) {
+/*function greenScreen(pixels) {
   const levels = {};
 
   document.querySelectorAll('.rgb input').forEach((input) => {
@@ -98,7 +98,7 @@ function greenScreen(pixels) {
 
   return pixels;
 
-}
+}*/
 
 getVideo();
 
