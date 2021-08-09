@@ -30,7 +30,7 @@ function paintToCanvas() {
     //pixels = redEffect(pixels);
 
     pixels = rgbSplit(pixels);
-    ctx.globalAlpha = 0.4;
+    ctx.globalAlpha = 0.8;
 
     //pixels = greenScreen(pixels);
 
